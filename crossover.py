@@ -20,8 +20,8 @@ def main():
     x_2, y_2=np.loadtxt(filename2, unpack=True)
 
     # 
-    P1=[V0, R, L]
-    P2=[V0, R, C]
+    P1=[V0, R, L, C]
+    P2=[V0, R, C, L]
 
     def woofer(x, V0, R, L):
         y=V0*R/np.sqrt(R**2+x**2*L**2)
@@ -45,6 +45,9 @@ def main():
     plt.figure()
     plt.plot(x_1, y_1, '.', label="datawoofer", color="steelblue")
     plt.plot(x_2, y_2, '.', label="datatweeter", color="steelblue")
+    plt.plot(x_1, woofer(x_1, *popt1), color='orange', label="Fit")
+    plt.plot(x_2, woofer(x_2, *popt2), color='orange', label="Fit")
+    plt.legend()
     plt.show()
 
 if __name__ == "__main__":
