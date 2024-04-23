@@ -23,11 +23,11 @@ def main():
     P1=[V0, R, L]
     P2=[V0, R, C]
 
-    def woofer(x, R, L):
+    def woofer(x, V0, R, L):
         y=V0*R/np.sqrt(R**2+x**2*L**2)
         return y
     
-    def tweeter(x, R, C):
+    def tweeter(x, V0, R, C):
         y=V0*R/np.sqrt(R**2+1/(x*C)**2)
         return y
     
@@ -39,11 +39,13 @@ def main():
         y=np.arctan(1/(x*R*C))
         return y
     
-    popt1=curve_fit(woofer, x_1, y_1, p0=P1, maxfev=70000)
+    popt1 =curve_fit(woofer, x_1, y_1, p0=P1, maxfev=70000)
     popt2=curve_fit(tweeter, x_2, y_2, p0=P2, maxfev=70000)
 
     plt.figure()
     plt.plot(x_1, y_1, '.', label="datawoofer", color="steelblue")
     plt.plot(x_2, y_2, '.', label="datatweeter", color="steelblue")
     plt.show()
-    
+
+if __name__ == "__main__":
+    main()
