@@ -14,9 +14,9 @@ def main():
     C = 26.11e-9
 
     # Loading data from files
-    filename1 = "amplitudewoofer.txt"
+    filename1 = "datiLab2/SweepAmpiezzaLargoWoofer.txt"
     x_1, y_1 = np.loadtxt(filename1, unpack=True)
-    filename2 = "amplitudetweeter.txt"
+    filename2 = "datiLab2/SweepAmpiezzaLargoTweeter.txt"
     x_2, y_2 = np.loadtxt(filename2, unpack=True)
 
     # Initial guesses for parameters
@@ -43,6 +43,9 @@ def main():
     plt.plot(x_2, y_2, '.', label="datatweeter", color="orange")
     plt.plot(x_1, woofer(x_1, *popt1), color='steelblue', label="Woofer Fit")
     plt.plot(x_2, tweeter(x_2, *popt2), color='orange', label="Tweeter Fit")
+    plt.xlabel('Frequenza (Hz)')  # Add x-axis label
+    plt.ylabel('Ampiezza (V)')  # Add y-axis label
+    plt.grid()
     plt.legend()
     plt.show()
 
