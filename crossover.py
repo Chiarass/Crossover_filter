@@ -18,6 +18,10 @@ def main():
     filename2 = "datiLab2/SweepAmpiezzaLargoTweeter.txt"
     x_2, y_2 = np.loadtxt(filename2, unpack=True)
 
+    # Define the error
+    yerr_1 = 0.005
+    yerr_2 = 0.005
+
     # Initial guesses for parameters
     P1 = [V0, R, L]
     P2 = [V0, R, C]
@@ -31,13 +35,13 @@ def main():
         return y
     
     # Fitting the woofer model to the first set of data
-    popt1, _ = curve_fit(woofer, x_1, y_1, p0=P1, maxfev=70000)
+    popt1, _ = curve_fit(woofer, x_1, y_1, p0=P1, sigma=yerr_1, absolute_sigma=True, maxfev=70000)
     residuals1 = y_1 - woofer(x_1, *popt1)
     fres1 = sum(residuals1**2) / (len(x_1) - len(popt1))
     print("Woofer reduced chi squared: ", fres1)
 
     # Fitting the tweeter model to the second set of data
-    popt2, _ = curve_fit(tweeter, x_2, y_2, p0=P2, maxfev=70000)
+    popt2, _ = curve_fit(tweeter, x_2, y_2, p0=P2, sigma=yerr_2, absolute_sigma=True, maxfev=70000)
     residuals2 = y_2 - tweeter(x_2, *popt2)
     fres2 = sum(residuals2**2) / (len(x_2) - len(popt2))
     print("Tweeter reduced chi squared: ", fres2)
@@ -56,7 +60,9 @@ def main():
     # Plotting
     plt.figure()
     plt.plot(x_1, y_1, '.', label="Data woofer", color="steelblue")
+    plt.errorbar(x_1,y_1,yerr=yerr_1, linestyle= 'dotted', color = "steelblue")
     plt.plot(x_2, y_2, '.', label="Data tweeter", color="orange")
+    plt.errorbar(x_2,y_2,yerr=yerr_2, linestyle= 'dotted', color = "orange")
     plt.plot(x_1, woofer(x_1, *popt1), color='black', label=" Fit woofer")
     plt.plot(x_2, tweeter(x_2, *popt2), color='red', label="Fit tweeter")
     plt.title('Ampiezza in funzione della frequenza', fontsize='x-large', fontweight='bold')
