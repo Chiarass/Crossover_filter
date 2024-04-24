@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import math
 from scipy.optimize import curve_fit
-
 def main():
     # Initial parameters
     V0 = 5
@@ -33,10 +32,15 @@ def main():
     
     # Fitting the woofer model to the first set of data
     popt1, _ = curve_fit(woofer, x_1, y_1, p0=P1, maxfev=70000)
-    
+    residuals1 = y_1 - woofer(x_1, *popt1)
+    fres1 = sum(residuals1**2) / (len(x_1) - len(popt1))
+    print("Woofer reduced chi squared: ", fres1)
+
     # Fitting the tweeter model to the second set of data
     popt2, _ = curve_fit(tweeter, x_2, y_2, p0=P2, maxfev=70000)
-
+    residuals2 = y_2 - tweeter(x_2, *popt2)
+    fres2 = sum(residuals2**2) / (len(x_2) - len(popt2))
+    print("Tweeter reduced chi squared: ", fres2)
 
     # Print the results
     print("Woofer parameters: ")
