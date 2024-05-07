@@ -70,6 +70,10 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "gaussFit.C": "cpp",
-        "histo_fit_gauss.C": "cpp"
+        "histo_fit_gauss.C": "cpp",
+        "fitFasi.C": "cpp",
+        "fitCrossoverPhase.C": "cpp",
+        "a.C": "cpp",
+        "fitLinear.C": "cpp"
     }
 }

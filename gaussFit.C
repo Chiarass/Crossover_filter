@@ -5,7 +5,7 @@
 
 void gaussFit()
 {
-    TH1F *h = new TH1F("h", "Histogram", 50000, 0.46, 0.475); // adjust bins and range as needed
+    TH1F *h = new TH1F("h", "Histogram", 100, 0.462, 0.471); // adjust bins and range
 
     std::ifstream file("datiLab2/ErroreAmpiezze.txt");
     if (!file)
