@@ -1,5 +1,6 @@
 #include "TGraphErrors.h"
 #include "TF1.h"
+#include "TAxis.h"
 
 void fitLinear()
 {
@@ -17,12 +18,9 @@ void fitLinear()
     dataAI2->Fit("f2", "Q");
 
     dataAI0->Draw("A, P");
-    // dataAI0->GetYaxis()->SetRangeUser(-0.5, 0.5);
-    // fitAI0->Draw("SAME");
+    dataAI0->GetYaxis()->SetRangeUser(-2., 20);
     dataAI1->Draw("SAME");
-    // fitAI1->Draw("SAME");
     dataAI2->Draw("SAME");
-    // fitAI2->Draw("SAME");
 
     std::cout << "AI0 fit:" << '\n';
     std::cout << "m = " << fitAI0->GetParameter(0) << " +/- " << fitAI0->GetParError(0) << '\n';
@@ -30,12 +28,12 @@ void fitLinear()
     std::cout << "reduced chi-square = " << fitAI0->GetChisquare() / fitAI0->GetNDF() << '\n';
     std::cout << "**********************************\n";
     std::cout << "AI1 fit:" << '\n';
-    std::cout << "m = " << fitAI1->GetParameter(0) << " +/- " << fitAI1->GetParError(0) << '\n';
-    std::cout << "q = " << fitAI1->GetParameter(1) << " +/- " << fitAI1->GetParError(1) << '\n';
+    std::cout << "m = " << fitAI1->GetParameter(2) << " +/- " << fitAI1->GetParError(2) << '\n';
+    std::cout << "q = " << fitAI1->GetParameter(3) << " +/- " << fitAI1->GetParError(3) << '\n';
     std::cout << "reduced chi-square = " << fitAI1->GetChisquare() / fitAI1->GetNDF() << '\n';
     std::cout << "**********************************\n";
     std::cout << "AI2 fit:" << '\n';
-    std::cout << "m = " << fitAI2->GetParameter(0) << " +/- " << fitAI2->GetParError(0) << '\n';
-    std::cout << "q = " << fitAI2->GetParameter(1) << " +/- " << fitAI2->GetParError(1) << '\n';
+    std::cout << "m = " << fitAI2->GetParameter(4) << " +/- " << fitAI2->GetParError(4) << '\n';
+    std::cout << "q = " << fitAI2->GetParameter(5) << " +/- " << fitAI2->GetParError(5) << '\n';
     std::cout << "reduced chi-square = " << fitAI2->GetChisquare() / fitAI2->GetNDF() << '\n';
 }

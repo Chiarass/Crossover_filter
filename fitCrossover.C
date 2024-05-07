@@ -3,6 +3,7 @@
 #include "TF1.h"
 #include "TMarker.h"
 #include "TMath.h"
+#include "TLegend.h"
 
 void fitCrossover()
 {
@@ -26,14 +27,25 @@ void fitCrossover()
     dataTweeter->Fit("fT", "Q");
 
     // try to calculate intersection of the two curves
-    TF1 *diff = new TF1("diff", "[0]*[1]/sqrt([1]^2 + 1/((2*TMath::Pi()*x)^2 * [2]^2)) - [0]*[1]/sqrt([1]^2 + (2*TMath::Pi()*x)^2 * [2]^2)", 2000, 18000);
+    auto parT = fitTweeter->GetParameters();
+    TF1 *diff = new TF1("diff", "TMath::Abs(fT->EvalPar(x, parT)", 2000, 18000);
     diff->SetLineColor(kBlue);
     // does not work
 
     dataWoofer->Draw("A, P");
+    dataWoofer->SetTitle("Crossover woofer-tweeter");
     dataWoofer->GetYaxis()->SetRangeUser(0., 0.5);
+    dataWoofer->GetYaxis()->SetTitle("V_{out} [V]");
+    dataWoofer->GetXaxis()->SetTitle("frequenza [Hz]");
     dataTweeter->Draw("same");
     diff->Draw("same");
+
+    /* auto legend = new TLegend(0.1, 0.7, 0.48, 0.9);
+    legend->SetHeader(" ", "C"); // option "C" allows to center the header
+    legend->AddEntry(dataWoofer, "Woofer", "f");
+    legend->AddEntry(dataTweeter, "Tweeter", "f");
+    legend->Draw(); */
+    // fix legend
 
     std::cout << "Woofer fit:" << '\n';
     std::cout << "V0 = " << fitWoofer->GetParameter(0) << " +/- " << fitWoofer->GetParError(0) << " Volt" << '\n';
@@ -46,4 +58,6 @@ void fitCrossover()
     std::cout << "R = " << fitTweeter->GetParameter(1) << " +/- " << fitTweeter->GetParError(1) << " Ohm" << '\n';
     std::cout << "C = " << fitTweeter->GetParameter(2) << " +/- " << fitTweeter->GetParError(2) << " Farad" << '\n';
     std::cout << "reduced chi-square = " << fitTweeter->GetChisquare() / fitTweeter->GetNDF() << '\n';
+    std::cout << "**********************************\n";
+    std::cout << diff->GetMinimum() << '\n';
 }
