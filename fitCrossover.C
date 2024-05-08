@@ -12,6 +12,8 @@ void fitCrossover()
     gStyle->SetPadTickX(1);
     gStyle->SetPadTickY(1);
     gStyle->SetGridColor(kGray);
+    // gStyle->SetOptFit(0111);
+    // gStyle->SetFitFormat("g");
 
     TGraphErrors *dataWoofer = new TGraphErrors("datiLab2/SweepAmpiezzaLargoWoofer.txt", "%lg %lg %lg");
     TGraphErrors *dataTweeter = new TGraphErrors("datiLab2/SweepAmpiezzaLargoTweeter.txt", "%lg %lg %lg");
@@ -42,7 +44,7 @@ void fitCrossover()
     // diff->SetLineColor(kBlue);
     // does not work
 
-    dataWoofer->Draw("APX");
+    dataWoofer->Draw("AP");
     dataWoofer->SetTitle("Analisi in frequenza");
     dataWoofer->GetYaxis()->SetRangeUser(0., 0.5);
     dataWoofer->GetYaxis()->SetTitle("V_{out} [V]");
@@ -50,14 +52,14 @@ void fitCrossover()
     dataWoofer->SetMarkerStyle(7);
     dataWoofer->SetMarkerColor(kTeal + 4);
 
-    dataTweeter->Draw("SAMEPX");
+    dataTweeter->Draw("SAMEPE");
     dataTweeter->SetMarkerStyle(7);
     dataTweeter->SetMarkerColor(kOrange - 3);
     // dataWoofer->GetFunction("fW");
 
     auto legend = new TLegend(0.85, 0., 1., 0.1);
-    legend->AddEntry(dataWoofer, "Dati woofer", "lp");
-    legend->AddEntry(dataTweeter, "Dati tweeter", "lp");
+    legend->AddEntry(dataWoofer, "Dati woofer", "lpe");
+    legend->AddEntry(dataTweeter, "Dati tweeter", "lpe");
     legend->Draw();
 
     std::cout

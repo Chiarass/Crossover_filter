@@ -9,6 +9,7 @@ void fitCrossoverPhase()
     gStyle->SetPadTickX(1);
     gStyle->SetPadTickY(1);
     gStyle->SetGridColor(kGray);
+    // gStyle->SetOptFit(0111);
 
     TGraphErrors *dataWoofer = new TGraphErrors("datiLab2/SweepFaseWooferCorretto.txt", "%lg %lg %lg");
     TGraphErrors *dataTweeter = new TGraphErrors("datiLab2/SweepFaseTweeterCorretto.txt", "%lg %lg %lg");
@@ -19,18 +20,35 @@ void fitCrossoverPhase()
     fitWoofer->SetParameters(10.2e-3, 559.9);
     fitWoofer->SetParLimits(0, 9.e-3, 11.e-3);
     fitWoofer->SetParLimits(1, 550., 570.);
-    dataWoofer->Fit("fW", "Q");
 
     // Fit tweeter: [0] = C, [1] = R
     TF1 *fitTweeter = new TF1("fT", "360/(2 * TMath::Pi()) * TMath::ATan(1/(2*TMath::Pi()*x*[0]*[1]))", 8000, 12000);
     fitTweeter->SetParameters(26.1e-9, 560.);
     fitTweeter->SetParLimits(0, 10.e-9, 40e-9);
     fitTweeter->SetParLimits(1, 530., 630.);
+
+    // cosmetics
+    gStyle->SetPadTickX(1);
+    gStyle->SetPadTickY(1);
+    gStyle->SetGridColor(kGray);
+    dataWoofer->GetYaxis()->SetRangeUser(-80, 80);
+    dataWoofer->GetYaxis()->SetTitle("fase [deg]");
+    dataWoofer->GetXaxis()->SetTitle("frequenza [Hz]");
+    dataWoofer->SetMarkerStyle(7);
+    dataWoofer->SetMarkerColor(kTeal + 4);
+    fitWoofer->SetLineColor(kTeal);
+    fitWoofer->SetLineWidth(1);
+    dataTweeter->SetMarkerStyle(7);
+    dataTweeter->SetMarkerColor(kOrange - 3);
+    fitTweeter->SetLineColor(kOrange);
+    fitTweeter->SetLineWidth(1);
+
+    // fit
+    dataWoofer->Fit("fW", "Q");
     dataTweeter->Fit("fT", "Q");
 
-    dataWoofer->Draw();
-    dataWoofer->GetYaxis()->SetRangeUser(-80, 80);
-    dataTweeter->Draw("same");
+    dataWoofer->Draw("APX");
+    dataTweeter->Draw("SAMEPX");
     // fitWoofer->Draw("SAME");
     // fitTweeter->Draw("SAME");
 
