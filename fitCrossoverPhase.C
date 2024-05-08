@@ -2,15 +2,20 @@
 #include "TH1F.h"
 #include "TF1.h"
 #include "TMath.h"
+#include "TStyle.h"
 
 void fitCrossoverPhase()
 {
+    gStyle->SetPadTickX(1);
+    gStyle->SetPadTickY(1);
+    gStyle->SetGridColor(kGray);
+
     TGraphErrors *dataWoofer = new TGraphErrors("datiLab2/SweepFaseWooferCorretto.txt", "%lg %lg %lg");
     TGraphErrors *dataTweeter = new TGraphErrors("datiLab2/SweepFaseTweeterCorretto.txt", "%lg %lg %lg");
 
     // Fit woofer: [0] = L, [1] = R
     TF1 *fitWoofer = new TF1("fW", "360/(2 * TMath::Pi()) * -TMath::ATan(2*TMath::Pi()*x*[0]/[1])", 8000, 12000);
-    // fitWoofer->Draw();
+    // remove the minus in the formula when fitting abs woofer phase
     fitWoofer->SetParameters(10.2e-3, 559.9);
     fitWoofer->SetParLimits(0, 9.e-3, 11.e-3);
     fitWoofer->SetParLimits(1, 550., 570.);
@@ -20,7 +25,7 @@ void fitCrossoverPhase()
     TF1 *fitTweeter = new TF1("fT", "360/(2 * TMath::Pi()) * TMath::ATan(1/(2*TMath::Pi()*x*[0]*[1]))", 8000, 12000);
     fitTweeter->SetParameters(26.1e-9, 560.);
     fitTweeter->SetParLimits(0, 10.e-9, 40e-9);
-    fitWoofer->SetParLimits(1, 500., 600.);
+    fitTweeter->SetParLimits(1, 530., 630.);
     dataTweeter->Fit("fT", "Q");
 
     dataWoofer->Draw();

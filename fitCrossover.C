@@ -5,10 +5,14 @@
 #include "TMath.h"
 #include "TLegend.h"
 #include <Fit/FitResult.h>
-#include "TPad.h"
+#include "TStyle.h"
 
 void fitCrossover()
 {
+    gStyle->SetPadTickX(1);
+    gStyle->SetPadTickY(1);
+    gStyle->SetGridColor(kGray);
+
     TGraphErrors *dataWoofer = new TGraphErrors("datiLab2/SweepAmpiezzaLargoWoofer.txt", "%lg %lg %lg");
     TGraphErrors *dataTweeter = new TGraphErrors("datiLab2/SweepAmpiezzaLargoTweeter.txt", "%lg %lg %lg");
 
@@ -18,7 +22,8 @@ void fitCrossover()
     fitWoofer->SetParLimits(0, 0., 1.);
     fitWoofer->SetParLimits(1, 540., 600.);
     fitWoofer->SetParLimits(2, 9.7e-3, 11.e-3);
-    fitWoofer->SetLineColor(kTeal + 4);
+    fitWoofer->SetLineColor(kTeal);
+    fitWoofer->SetLineWidth(1);
     dataWoofer->Fit("fW", "Q");
 
     // Fit tweeter: [0] = V0, [1] = R, [2] = C
@@ -27,7 +32,8 @@ void fitCrossover()
     fitTweeter->SetParLimits(0, 0., 1.);
     fitTweeter->SetParLimits(1, 560., 600.);
     fitTweeter->SetParLimits(2, 23.e-9, 29e-9);
-    fitTweeter->SetLineColor(kOrange - 3);
+    fitTweeter->SetLineColor(kOrange);
+    fitTweeter->SetLineWidth(1);
     dataTweeter->Fit("fT", "Q");
 
     // try to calculate intersection of the two curves
@@ -36,21 +42,23 @@ void fitCrossover()
     // diff->SetLineColor(kBlue);
     // does not work
 
-    dataWoofer->Draw("A, P");
+    dataWoofer->Draw("APX");
     dataWoofer->SetTitle("Analisi in frequenza");
     dataWoofer->GetYaxis()->SetRangeUser(0., 0.5);
     dataWoofer->GetYaxis()->SetTitle("V_{out} [V]");
     dataWoofer->GetXaxis()->SetTitle("frequenza [Hz]");
+    dataWoofer->SetMarkerStyle(7);
+    dataWoofer->SetMarkerColor(kTeal + 4);
 
-    dataTweeter->Draw("same");
+    dataTweeter->Draw("SAMEPX");
+    dataTweeter->SetMarkerStyle(7);
+    dataTweeter->SetMarkerColor(kOrange - 3);
     // dataWoofer->GetFunction("fW");
 
     auto legend = new TLegend(0.85, 0., 1., 0.1);
-    legend->SetHeader(" ", "C"); // option "C" allows to center the header
-    legend->AddEntry(dataWoofer, "Woofer", "l");
-    legend->AddEntry(dataTweeter, "Tweeter", "l");
+    legend->AddEntry(dataWoofer, "Dati woofer", "lp");
+    legend->AddEntry(dataTweeter, "Dati tweeter", "lp");
     legend->Draw();
-    // fix legend
 
     std::cout
         << "Woofer fit:" << '\n';
