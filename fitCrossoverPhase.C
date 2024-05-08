@@ -5,8 +5,8 @@
 
 void fitCrossoverPhase()
 {
-    TGraphErrors *dataWoofer = new TGraphErrors("datiLab2/SweepFaseWoofer.txt", "%lg %lg %lg");
-    TGraphErrors *dataTweeter = new TGraphErrors("datiLab2/SweepFaseTweeter.txt", "%lg %lg %lg");
+    TGraphErrors *dataWoofer = new TGraphErrors("datiLab2/SweepFaseWooferCorretto.txt", "%lg %lg %lg");
+    TGraphErrors *dataTweeter = new TGraphErrors("datiLab2/SweepFaseTweeterCorretto.txt", "%lg %lg %lg");
 
     // Fit woofer: [0] = L, [1] = R
     TF1 *fitWoofer = new TF1("fW", "360/(2 * TMath::Pi()) * -TMath::ATan(2*TMath::Pi()*x*[0]/[1])", 8000, 12000);

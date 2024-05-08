@@ -4,6 +4,7 @@
 #include "TMarker.h"
 #include "TMath.h"
 #include "TLegend.h"
+#include <Fit/FitResult.h>
 
 void fitCrossover()
 {
@@ -14,21 +15,21 @@ void fitCrossover()
     TF1 *fitWoofer = new TF1("fW", "[0]*[1]/sqrt([1]^2 + (2*TMath::Pi()*x)^2 * [2]^2)");
     fitWoofer->SetParameters(1., 559.9, 10.2e-3);
     fitWoofer->SetParLimits(0, 0., 1.);
-    fitWoofer->SetParLimits(1, 500., 600.);
-    fitWoofer->SetParLimits(2, 9.e-3, 11.e-3);
+    fitWoofer->SetParLimits(1, 540., 600.);
+    fitWoofer->SetParLimits(2, 9.7e-3, 11.e-3);
     dataWoofer->Fit("fW", "Q");
 
     // Fit tweeter: [0] = V0, [1] = R, [2] = C
     TF1 *fitTweeter = new TF1("fT", "[0]*[1]/sqrt([1]^2 + 1/((2*TMath::Pi()*x)^2 * [2]^2))");
     fitTweeter->SetParameters(1., 560., 26.10e-9);
     fitTweeter->SetParLimits(0, 0., 1.);
-    fitTweeter->SetParLimits(1, 500., 600.);
-    fitTweeter->SetParLimits(2, 20.e-9, 30e-9);
+    fitTweeter->SetParLimits(1, 560., 600.);
+    fitTweeter->SetParLimits(2, 23.e-9, 29e-9);
     dataTweeter->Fit("fT", "Q");
 
     // try to calculate intersection of the two curves
-    auto parT = fitTweeter->GetParameters();
-    TF1 *diff = new TF1("diff", "TMath::Abs(fT->EvalPar(x, parT)", 2000, 18000);
+    // auto parT = fitTweeter->GetParameters();
+    TF1 *diff = new TF1("diff", "fT - fW", 2000, 18000);
     diff->SetLineColor(kBlue);
     // does not work
 
@@ -38,7 +39,7 @@ void fitCrossover()
     dataWoofer->GetYaxis()->SetTitle("V_{out} [V]");
     dataWoofer->GetXaxis()->SetTitle("frequenza [Hz]");
     dataTweeter->Draw("same");
-    diff->Draw("same");
+    dataWoofer->GetFunction("fW");
 
     /* auto legend = new TLegend(0.1, 0.7, 0.48, 0.9);
     legend->SetHeader(" ", "C"); // option "C" allows to center the header
@@ -47,7 +48,8 @@ void fitCrossover()
     legend->Draw(); */
     // fix legend
 
-    std::cout << "Woofer fit:" << '\n';
+    std::cout
+        << "Woofer fit:" << '\n';
     std::cout << "V0 = " << fitWoofer->GetParameter(0) << " +/- " << fitWoofer->GetParError(0) << " Volt" << '\n';
     std::cout << "R = " << fitWoofer->GetParameter(1) << " +/- " << fitWoofer->GetParError(1) << " Ohm" << '\n';
     std::cout << "L = " << fitWoofer->GetParameter(2) << " +/- " << fitWoofer->GetParError(2) << " Henry" << '\n';
@@ -59,5 +61,5 @@ void fitCrossover()
     std::cout << "C = " << fitTweeter->GetParameter(2) << " +/- " << fitTweeter->GetParError(2) << " Farad" << '\n';
     std::cout << "reduced chi-square = " << fitTweeter->GetChisquare() / fitTweeter->GetNDF() << '\n';
     std::cout << "**********************************\n";
-    std::cout << diff->GetMinimum() << '\n';
+    // std::cout << diff->GetMinimum() << '\n';
 }

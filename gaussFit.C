@@ -5,9 +5,10 @@
 
 void gaussFit()
 {
-    TH1F *h = new TH1F("h", "Histogram", 100, 0.462, 0.471); // adjust bins and range
+    // TH1F *h = new TH1F("h", "Histogram", 50, 0.461, 0.4725); // range for amplitude
+    TH1F *h = new TH1F("h", "Histogram", 100, 56.7, 57.4); // range for phase
 
-    std::ifstream file("datiLab2/ErroreAmpiezze.txt");
+    std::ifstream file("datiLab2/ErroreCasualeFase.txt");
     if (!file)
     {
         std::cerr << "Unable to open file";
