@@ -3,7 +3,7 @@
 #include <iostream>
 #include <TF1.h>
 
-void gaussFit()
+void fitGauss()
 {
     // TH1F *h = new TH1F("h", "Histogram", 50, 0.461, 0.4725); // range for amplitude
     TH1F *h = new TH1F("h", "Histogram", 100, 56.7, 57.4); // range for phase

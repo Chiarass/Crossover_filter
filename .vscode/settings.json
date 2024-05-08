@@ -74,6 +74,7 @@
         "fitFasi.C": "cpp",
         "fitCrossoverPhase.C": "cpp",
         "a.C": "cpp",
-        "fitLinear.C": "cpp"
+        "fitLinear.C": "cpp",
+        "fitGauss.C": "cpp"
     }
 }
