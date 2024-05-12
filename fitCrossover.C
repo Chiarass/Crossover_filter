@@ -62,8 +62,7 @@ void fitCrossover()
     legend->AddEntry(dataTweeter, "Dati tweeter", "lpe");
     legend->Draw();
 
-    std::cout
-        << "Woofer fit:" << '\n';
+    std::cout << "Woofer fit:" << '\n';
     std::cout << "V0 = " << fitWoofer->GetParameter(0) << " +/- " << fitWoofer->GetParError(0) << " Volt" << '\n';
     std::cout << "R = " << fitWoofer->GetParameter(1) << " +/- " << fitWoofer->GetParError(1) << " Ohm" << '\n';
     std::cout << "L = " << fitWoofer->GetParameter(2) << " +/- " << fitWoofer->GetParError(2) << " Henry" << '\n';
