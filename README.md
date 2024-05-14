@@ -10,8 +10,8 @@ Co = 26.10 * 10^(-9); (*Capacitor (farad)*)\
 L = 10.20 *10^(-3); (*Inductance (henry)*)\
 freq. crossover = 9.80 +/- 1 kHz
 
-Fit ampiezze:
+Fit ampiezze:\
 freq. crossover = 9.7 +/- 0.1 kHz
 
-Fit fasi (errore di 0.067 = 1 $\sigma$ su ogni misura):
+Fit fasi (errore di 0.067 = 1 $\sigma$ su ogni misura):\
 freq. crossover = 9.8 +/- 0.1 kHz
