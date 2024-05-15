@@ -5,10 +5,10 @@
 
 void fitGauss()
 {
-    // TH1F *h = new TH1F("h", "Histogram", 50, 0.461, 0.4725); // range for amplitude
-    TH1F *h = new TH1F("h", "Histogram", 100, 56.7, 57.4); // range for phase
+    TH1F *h = new TH1F("h", "Histogram", 100, 0.461, 0.4725); // range for amplitude
+    // TH1F *h = new TH1F("h", "Histogram", 100, 56.7, 57.4); // range for phase
 
-    std::ifstream file("datiLab2/ErroreCasualeFase.txt");
+    std::ifstream file("datiLab2/ErroreAmpiezze.txt");
     if (!file)
     {
         std::cerr << "Unable to open file";
@@ -22,11 +22,18 @@ void fitGauss()
     file.close();
 
     h->Draw();
+    h->SetTitle(" ");
+    h->GetXaxis()->SetTitle("V_{out} [V]");
+    h->GetYaxis()->SetTitle("occorrenze");
+    h->SetFillColorAlpha(kTeal, 0.2);
 
     TF1 *fit = new TF1("gaussFit", "gaus(0)");
     // gausn(0) è normalizzata
+    fit->SetLineWidth(3);
+    fit->SetLineColor(kViolet);
 
-    std::cout << "media istogramma = " << h->GetMean() << " +/- " << h->GetMeanError() << '\n';
+    std::cout
+        << "media istogramma = " << h->GetMean() << " +/- " << h->GetMeanError() << '\n';
     std::cout << "dev. standard istogramma = " << h->GetRMS() << " +/- " << h->GetRMSError() << '\n';
 
     h->Fit("gaussFit", "Q");

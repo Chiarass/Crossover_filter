@@ -24,7 +24,7 @@ void fitCrossover()
     fitWoofer->SetParLimits(0, 0., 1.);
     fitWoofer->SetParLimits(1, 540., 600.);
     fitWoofer->SetParLimits(2, 9.7e-3, 11.e-3);
-    fitWoofer->SetLineColor(kTeal);
+    fitWoofer->SetLineColor(kOrange);
     fitWoofer->SetLineWidth(1);
     dataWoofer->Fit("fW", "Q");
 
@@ -34,7 +34,7 @@ void fitCrossover()
     fitTweeter->SetParLimits(0, 0., 1.);
     fitTweeter->SetParLimits(1, 560., 600.);
     fitTweeter->SetParLimits(2, 23.e-9, 29e-9);
-    fitTweeter->SetLineColor(kOrange);
+    fitTweeter->SetLineColor(kTeal);
     fitTweeter->SetLineWidth(1);
     dataTweeter->Fit("fT", "Q");
 
@@ -45,16 +45,16 @@ void fitCrossover()
     // does not work
 
     dataWoofer->Draw("AP");
-    dataWoofer->SetTitle("Analisi in frequenza");
+    dataWoofer->SetTitle(" ");
     dataWoofer->GetYaxis()->SetRangeUser(0., 0.5);
     dataWoofer->GetYaxis()->SetTitle("V_{out} [V]");
     dataWoofer->GetXaxis()->SetTitle("frequenza [Hz]");
     dataWoofer->SetMarkerStyle(7);
-    dataWoofer->SetMarkerColor(kTeal + 4);
+    dataWoofer->SetMarkerColor(kOrange - 3);
 
     dataTweeter->Draw("SAMEPE");
     dataTweeter->SetMarkerStyle(7);
-    dataTweeter->SetMarkerColor(kOrange - 3);
+    dataTweeter->SetMarkerColor(kTeal + 4);
     // dataWoofer->GetFunction("fW");
 
     auto legend = new TLegend(0.85, 0., 1., 0.1);

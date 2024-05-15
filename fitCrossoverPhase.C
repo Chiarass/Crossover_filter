@@ -3,6 +3,7 @@
 #include "TF1.h"
 #include "TMath.h"
 #include "TStyle.h"
+#include "TLegend.h"
 
 void fitCrossoverPhase()
 {
@@ -31,16 +32,17 @@ void fitCrossoverPhase()
     gStyle->SetPadTickX(1);
     gStyle->SetPadTickY(1);
     gStyle->SetGridColor(kGray);
+    dataWoofer->SetTitle(" ");
     dataWoofer->GetYaxis()->SetRangeUser(-80, 80);
     dataWoofer->GetYaxis()->SetTitle("fase [deg]");
     dataWoofer->GetXaxis()->SetTitle("frequenza [Hz]");
     dataWoofer->SetMarkerStyle(7);
-    dataWoofer->SetMarkerColor(kTeal + 4);
-    fitWoofer->SetLineColor(kTeal);
+    dataWoofer->SetMarkerColor(kOrange - 3);
+    fitWoofer->SetLineColor(kOrange);
     fitWoofer->SetLineWidth(1);
     dataTweeter->SetMarkerStyle(7);
-    dataTweeter->SetMarkerColor(kOrange - 3);
-    fitTweeter->SetLineColor(kOrange);
+    dataTweeter->SetMarkerColor(kTeal + 4);
+    fitTweeter->SetLineColor(kTeal);
     fitTweeter->SetLineWidth(1);
 
     // fit
@@ -51,6 +53,11 @@ void fitCrossoverPhase()
     dataTweeter->Draw("SAMEPX");
     // fitWoofer->Draw("SAME");
     // fitTweeter->Draw("SAME");
+
+    auto legend = new TLegend(0.85, 0., 1., 0.1);
+    legend->AddEntry(dataWoofer, "Dati woofer", "lpe");
+    legend->AddEntry(dataTweeter, "Dati tweeter", "lpe");
+    legend->Draw();
 
     std::cout << "Woofer phase fit:" << '\n';
     std::cout << "L = " << fitWoofer->GetParameter(0) << " +/- " << fitWoofer->GetParError(0) << " Henry" << '\n';

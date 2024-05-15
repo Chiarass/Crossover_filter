@@ -26,12 +26,12 @@ void fitLinear()
     fitAI0->SetLineColor(kViolet);
     fitAI0->SetLineWidth(1);
     dataAI1->SetMarkerStyle(7);
-    dataAI1->SetMarkerColor(kAzure + 7);
-    fitAI1->SetLineColor(kAzure);
+    dataAI1->SetMarkerColor(kOrange - 3);
+    fitAI1->SetLineColor(kOrange);
     fitAI1->SetLineWidth(1);
     dataAI2->SetMarkerStyle(7);
-    dataAI2->SetMarkerColor(kPink - 2);
-    fitAI2->SetLineColor(kRed);
+    dataAI2->SetMarkerColor(kTeal + 4);
+    fitAI2->SetLineColor(kTeal);
     fitAI2->SetLineWidth(1);
 
     // fit
