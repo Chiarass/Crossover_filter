@@ -1,17 +1,6 @@
-Repository for a crossover filter circuit laboratory experience (UniBo, A.A. 2023-24)
+Repository for a crossover filter circuit laboratory experience.
+The experiment was part of the _Laboratorio di Elettromagnetismo_ e Ottica class, by prof. N. Mauri at UniBo.
 
-Dati misurati:
-Rt = 559.93; (*Tweeter resistance*)\
-Rw = 560.8; (*Woofer resistance*)\
-Rg = 50; (*Generator resistance*)\
-RL = 40.9; (*Inductor resistance*)\
-RaggT = 37.27; (*Resistance added on the tweeter to compensate RL*)\
-Co = 26.10 * 10^(-9); (*Capacitor (farad)*)\
-L = 10.20 *10^(-3); (*Inductance (henry)*)\
-freq. crossover = 9.80 +/- 1 kHz
+We built a two-way crossover filter and determined its crossover frequency with different methods.
 
-Fit ampiezze:\
-freq. crossover = 9.7 +/- 0.1 kHz
-
-Fit fasi (errore di 0.067 = 1 $\sigma$ su ogni misura):\
-freq. crossover = 9.8 +/- 0.1 kHz
+In the `datiLab2` folder, you'll find all the data that were acquired. All the .C files are ROOT macros used to fit them, as well as the .py file. `Relazione.pdf` is the final report, where you'll find a thorough description of the experiment (in Italian).
